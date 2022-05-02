@@ -1,0 +1,35 @@
+plugins {
+    id 'org.springframework.boot' version '3.0.0-M2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'com.sourcemuse.mongo' version '1.0.7'
+
+}
+
+group = 'com.blauwmaan.webflux'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+}
+
+dependencies {
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+    implementation 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+}
+
+mongo {
+    port 27017
+    logging 'console'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    runWithMongoDb = true
+}
